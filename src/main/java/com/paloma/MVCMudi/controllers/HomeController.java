@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Locale;
 
 @RequestMapping("/home")
 @Controller
@@ -24,7 +23,7 @@ public class HomeController {
     @GetMapping()
     public String home(Model model) {
 
-        List<Pedido>pedidos = pedidoRepository.findAll();
+        List<Pedido> pedidos = pedidoRepository.findAll();
         model.addAttribute("pedidos", pedidos);
         return "home";
     }
@@ -32,22 +31,14 @@ public class HomeController {
     @GetMapping("/{status}")
     public String aguardando(@PathVariable("status") String status, Model model) {
 
-        List<Pedido>pedidos = pedidoRepository.findByStatus(StatusPedido.valueOf(status.toUpperCase()));
+        List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.valueOf(status.toUpperCase()));
         model.addAttribute("pedidos", pedidos);
         model.addAttribute("status", status);
         return "home";
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public String onError(){
+    public String onError() {
         return "redirect:/home";
     }
-
-//    @GetMapping("/aprovado")
-//    public String aprovado(Model model) {
-//
-//        List<Pedido>pedidos = pedidoRepository.findByStatus(StatusPedido.APROVADO);
-//        model.addAttribute("pedidos", pedidos);
-//        return "home";
-//    }
 }
