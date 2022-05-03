@@ -34,7 +34,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .loginPage("/login")
                         .defaultSuccessUrl("/home", true)
                         .permitAll()
-                ).logout(logout -> logout.logoutUrl("/logout"));
+                )
+                .logout(logout -> logout.logoutUrl("/logout"))
+                .csrf().disable();
     }
 
     //indicando que vamos trabalhar com jdbc authentication
@@ -43,17 +45,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        UserDetails user =
-                User.builder()
-                        .username("maria")
-                        .password(encoder.encode("maria"))
-                        .roles("ADM")
-                        .build();
+//        UserDetails user =
+//                User.builder()
+//                        .username("paloma")
+//                        .password(encoder.encode("paloma"))
+//                        .roles("ADM")
+//                        .build();
 
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .passwordEncoder(encoder)
-                .withUser(user);
+                .passwordEncoder(encoder);
+              //  .withUser(user);
     }
 
     @Bean
