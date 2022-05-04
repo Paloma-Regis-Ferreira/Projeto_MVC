@@ -1,0 +1,77 @@
+<html>
+<head th:replace="~{base :: head}"></head>
+<body onload="onLoad()">
+<div th:replace="~{base :: logo}"></div>
+
+<div class="container" id="ofertas">
+    <div th:replace="~{base :: titulo('Faça sua Oferta')}"></div>
+
+    <div class="card mb-3" v-for="pedido in pedidos">
+        <div class="card-header alert-dark">{{pedido.nome}}</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-sm-8  mb-3">
+                    <div class="row">
+                        <div class="col-md-5">Valor: <input /></div>
+                        <div class="col-md-7">Data da entrega: <input /></div>
+                    </div>
+                    <div>Produto</div>
+                    <div> <a v-bind:href="pedido.urlProduto">{{pedido.nome}}</a></div>
+
+                    <div>Descrição</div>
+                    <div>
+                        <textarea class="form-control">{{pedido.descricao}}</textarea>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <div>
+                        <img class="img-thumbnail" v-bind:src="pedido.urlImagem"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+			function onLoad(){
+                var app = new Vue(
+                {
+					el : '#ofertas',
+					data : {
+                        pedidos: [
+                            {
+                                "nome":"teste",
+                                "valorNegociado":null,
+                                "dataDaEntrega":null,
+                                "urlDoProduto":"teste",
+                                "urlDaImagem":"teste",
+                                "descricao":"",
+                                "status":"AGUARDANDO"
+                            },
+                            {
+                                "nome":"Livro",
+                                "valorNegociado":null,
+                                "dataDaEntrega":null,
+                                "urlDoProduto":"https://www.submarino.com.br/produto/130884182?opn=XMLGOOGLE&offerId=5e5d0390657407f871434e59",
+                                "urlDaImagem":"https://images-submarino.b2w.io/produtos/130884182/imagens/livro-a-garota-do-lago/130884182_1_large.jpg",
+                                "descricao":"testando",
+                                "status":"AGUARDANDO"
+                            },
+                            {
+                                "nome":"teste",
+                                "valorNegociado":null,
+                                "dataDaEntrega":null,
+                                "urlDoProduto":"https://www.amazon.com.br/Smartphone-Xiaomi-Redmi-Note-64GB/dp/B07Y8YWTFL/ref=sr_1_6?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=Xiaomi+Redmi+Note+8&qid=1600346040&sr=8-6",
+                                "urlDaImagem":"https://images-na.ssl-images-amazon.com/images/I/81UgYuadkpL._AC_SL1500_.jpg",
+                                "descricao":"",
+                                "status":"AGUARDANDO"
+                            }
+                        ]
+                    }
+                });
+            }
+		</script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</body>
+</html>
